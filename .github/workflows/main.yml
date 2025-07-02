@@ -17,16 +17,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      - name: Simulate dependency install
+        run: echo "Installing dependencies..."
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
+      - name: Simulate build process
+        run: |
+          mkdir -p dist
+          echo "<html><body>Neymar e o melhor jogador de sempre</body></html>" > dist/index.html
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

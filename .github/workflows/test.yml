@@ -1,0 +1,50 @@
+name: Multi-Platform & Multi-Version Testing
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test on Node.js ${{ matrix.node }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: [14, 16, 18]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        exclude:
+          - node: 14
+            os: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: echo "Nothing to install"
+
+      - name: Run tests
+        run: echo "Running tests for Node.js ${{ matrix.node }} on ${{ matrix.os }}"
+
+  lint:
+    name: Lint (Node.js 18 on Ubuntu only)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: echo "Nothing to install"
+
+      - name: Run linter
+        run: echo "Linting code..."

@@ -19,7 +19,7 @@ jobs:
           - node: 14
             os: windows-latest
           - node: 14
-            os: macos-latest  # ❌ Unsupported on GitHub-hosted macOS ARM64
+            os: macos-latest 
     steps:
       - uses: actions/checkout@v4
 
